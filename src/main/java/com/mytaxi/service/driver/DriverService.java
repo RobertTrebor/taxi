@@ -1,5 +1,6 @@
 package com.mytaxi.service.driver;
 
+import com.mytaxi.domainobject.CarDO;
 import com.mytaxi.domainobject.DriverDO;
 import com.mytaxi.domainvalue.OnlineStatus;
 import com.mytaxi.exception.ConstraintsViolationException;
@@ -18,5 +19,7 @@ public interface DriverService
     void updateLocation(long driverId, double longitude, double latitude) throws EntityNotFoundException;
 
     List<DriverDO> find(OnlineStatus onlineStatus);
+
+    void updateSelectedCar(long driverId, CarDO carDO) throws EntityNotFoundException;
 
 }

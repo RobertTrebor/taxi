@@ -32,6 +32,20 @@ public class DriverMapper
     }
 
 
+    public static DriverDTO makeDriverCarDTO(DriverDO driverDO)
+    {
+        DriverDTO.DriverDTOBuilder driverDTOBuilder = DriverDTO.newBuilder()
+            .setId(driverDO.getId());
+
+        if (driverDO.getSelectedCar() != null)
+        {
+            driverDTOBuilder.setSelectedCar(driverDO.getSelectedCar());
+        }
+
+        return driverDTOBuilder.createDriverDTO();
+    }
+
+
     public static List<DriverDTO> makeDriverDTOList(Collection<DriverDO> drivers)
     {
         return drivers.stream()

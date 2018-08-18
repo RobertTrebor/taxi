@@ -1,6 +1,7 @@
 package com.mytaxi.controller;
 
-import com.mytaxi.domainobject.CarDO;
+import com.mytaxi.controller.mapper.CarMapper;
+import com.mytaxi.datatransferobject.CarDTO;
 import com.mytaxi.service.car.CarService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,9 +23,8 @@ public class CarController
 
 
     @GetMapping
-    public List<CarDO> findAvailableCars()
+    public List<CarDTO> findAvailableCars()
     {
-        List<CarDO> cars = carService.find(true);
-        return cars;
+        return CarMapper.makeCarDTOList(carService.find(true));
     }
 }

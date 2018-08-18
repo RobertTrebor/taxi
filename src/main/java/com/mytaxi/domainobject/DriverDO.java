@@ -122,6 +122,18 @@ public class DriverDO
     }
 
 
+    public CarDO getSelectedCar()
+    {
+        return selectedCar;
+    }
+
+
+    public void setSelectedCar(CarDO selectedCar)
+    {
+        this.selectedCar = selectedCar;
+    }
+
+
     public GeoCoordinate getCoordinate()
     {
         return coordinate;

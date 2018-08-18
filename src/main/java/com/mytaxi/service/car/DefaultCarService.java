@@ -7,6 +7,7 @@ import com.mytaxi.exception.ConstraintsViolationException;
 import com.mytaxi.exception.EntityNotFoundException;
 import java.util.List;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,13 +22,9 @@ public class DefaultCarService implements CarService
 
     private static org.slf4j.Logger LOG = LoggerFactory.getLogger(DefaultCarService.class);
 
-    private final CarRepository carRepository;
+    @Autowired
+    private CarRepository carRepository;
 
-
-    public DefaultCarService(final CarRepository carRepository)
-    {
-        this.carRepository = carRepository;
-    }
 
 
     /**
@@ -45,7 +42,7 @@ public class DefaultCarService implements CarService
 
 
     /**
-     * Creates a new driver.
+     * Creates a new car.
      *
      * @param carDO
      * @return

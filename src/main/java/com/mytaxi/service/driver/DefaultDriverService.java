@@ -1,6 +1,7 @@
 package com.mytaxi.service.driver;
 
 import com.mytaxi.dataaccessobject.DriverRepository;
+import com.mytaxi.domainobject.CarDO;
 import com.mytaxi.domainobject.DriverDO;
 import com.mytaxi.domainvalue.GeoCoordinate;
 import com.mytaxi.domainvalue.OnlineStatus;
@@ -8,6 +9,7 @@ import com.mytaxi.exception.ConstraintsViolationException;
 import com.mytaxi.exception.EntityNotFoundException;
 import java.util.List;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,13 +24,8 @@ public class DefaultDriverService implements DriverService
 
     private static org.slf4j.Logger LOG = LoggerFactory.getLogger(DefaultDriverService.class);
 
-    private final DriverRepository driverRepository;
-
-
-    public DefaultDriverService(final DriverRepository driverRepository)
-    {
-        this.driverRepository = driverRepository;
-    }
+    @Autowired
+    private DriverRepository driverRepository;
 
 
     /**
@@ -99,6 +96,25 @@ public class DefaultDriverService implements DriverService
         DriverDO driverDO = findDriverChecked(driverId);
         driverDO.setCoordinate(new GeoCoordinate(latitude, longitude));
     }
+
+
+    /**
+     * Update the selected car.
+     *
+     * @param driverId
+     * @param carDO
+     * @throws EntityNotFoundException
+     */
+    @Override
+    @Transactional
+    public void updateSelectedCar(long driverId, CarDO carDO) throws EntityNotFoundException
+    {
+        DriverDO driverDO = findDriverChecked(driverId);
+        driverDO.setSelectedCar(carDO);
+
+    }
+
+
 
 
     /**

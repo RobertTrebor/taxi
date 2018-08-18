@@ -2,10 +2,12 @@ package com.mytaxi.controller;
 
 import com.mytaxi.controller.mapper.DriverMapper;
 import com.mytaxi.datatransferobject.DriverDTO;
+import com.mytaxi.domainobject.CarDO;
 import com.mytaxi.domainobject.DriverDO;
 import com.mytaxi.domainvalue.OnlineStatus;
 import com.mytaxi.exception.ConstraintsViolationException;
 import com.mytaxi.exception.EntityNotFoundException;
+import com.mytaxi.service.car.CarService;
 import com.mytaxi.service.driver.DriverService;
 import java.util.List;
 import javax.validation.Valid;
@@ -31,14 +33,11 @@ import org.springframework.web.bind.annotation.RestController;
 public class DriverController
 {
 
-    private final DriverService driverService;
-
+    @Autowired
+    private DriverService driverService;
 
     @Autowired
-    public DriverController(final DriverService driverService)
-    {
-        this.driverService = driverService;
-    }
+    private CarService carService;
 
 
     @GetMapping("/{driverId}")
@@ -47,6 +46,21 @@ public class DriverController
         return DriverMapper.makeDriverDTO(driverService.find(driverId));
     }
 
+
+    @PutMapping("/{driverId}/select")
+    public void selectCar(
+        @Valid @PathVariable long driverId, @RequestParam long carId) throws EntityNotFoundException
+    {
+        CarDO carDO = carService.find(carId);
+        driverService.updateSelectedCar(driverId, carDO);
+    }
+
+
+    @GetMapping("/{driverId}/car")
+    public DriverDTO getDriverAndCar(@Valid @PathVariable long driverId) throws EntityNotFoundException
+    {
+        return DriverMapper.makeDriverCarDTO(driverService.find(driverId));
+    }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
