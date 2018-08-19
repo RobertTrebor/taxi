@@ -111,11 +111,24 @@ public class DefaultDriverService implements DriverService
     {
         DriverDO driverDO = findDriverChecked(driverId);
         driverDO.setSelectedCar(carDO);
-
     }
 
 
-
+    /**
+     * Find specified driver by online state.
+     *
+     * @param driverId
+     */
+    @Override
+    public DriverDO findOnline(long driverId) throws EntityNotFoundException
+    {
+        DriverDO driverDO = findDriverChecked(driverId);
+        if (!driverDO.getOnlineStatus().equals(OnlineStatus.ONLINE))
+        {
+            throw new EntityNotFoundException("Entity with id: " + driverId + "is not ONLINE");
+        }
+        return driverDO;
+    }
 
     /**
      * Find all drivers by online state.

@@ -3,6 +3,7 @@ package com.mytaxi.service.car;
 import com.mytaxi.dataaccessobject.CarRepository;
 import com.mytaxi.domainobject.CarDO;
 import com.mytaxi.domainvalue.GeoCoordinate;
+import com.mytaxi.exception.CarAlreadyInUseException;
 import com.mytaxi.exception.ConstraintsViolationException;
 import com.mytaxi.exception.EntityNotFoundException;
 import java.util.List;
@@ -76,9 +77,74 @@ public class DefaultCarService implements CarService
     public void delete(Long carId) throws EntityNotFoundException
     {
         CarDO carDO = findCarChecked(carId);
-        carDO.setActive(true);
+        carDO.setActive(false);
     }
 
+
+    /**
+     * Select a car.
+     *
+     * @param carId
+     * @throws EntityNotFoundException
+     */
+    @Override
+    @Transactional
+    public CarDO selectCar(long carId) throws EntityNotFoundException, CarAlreadyInUseException
+    {
+        CarDO carDO = findCarChecked(carId);
+        if (checkCarAvailability(carDO))
+        {
+            carDO.setAvailable(false);
+        }
+        else
+        {
+            throw new CarAlreadyInUseException("Selected car is not available at the moment!");
+        }
+        return carDO;
+    }
+
+
+    /**
+     * Drop a car.
+     *
+     * @param carId
+     * @throws EntityNotFoundException
+     */
+    @Override
+    @Transactional
+    public void dropSelectedCar(long carId) throws EntityNotFoundException
+    {
+        CarDO carDO = findCarChecked(carId);
+        if (!carDO.getAvailable())
+        {
+            carDO.setAvailable(true);
+        }
+        else
+        {
+            throw new EntityNotFoundException("Selected car was not actually in use!");
+        }
+    }
+
+
+    /**
+     * Update the availability for a car.
+     *
+     * @param carId
+     * @param available
+     * @throws EntityNotFoundException
+     */
+    @Override
+    @Transactional
+    public void updateAvailable(long carId, boolean available) throws EntityNotFoundException
+    {
+        CarDO carDO = findCarChecked(carId);
+        if (checkCarAvailability(carDO))
+        {
+            carDO.setAvailable(available);
+
+        }
+
+    }
 
     /**
      * Update the location for a car.
@@ -109,10 +175,37 @@ public class DefaultCarService implements CarService
     }
 
 
+    /**
+     * Find all cars
+     */
+    @Override
+    public List<CarDO> findAll()
+    {
+        return carRepository.findAll();
+    }
+
+
+    /**
+     * Find all cars
+     */
+    private boolean checkCarAvailability(CarDO carDO)
+    {
+        if (carDO.getAvailable() != null && carDO.getAvailable())
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+
     private CarDO findCarChecked(Long carId) throws EntityNotFoundException
     {
         return carRepository.findById(carId)
             .orElseThrow(() -> new EntityNotFoundException("Could not find entity with id: " + carId));
     }
+
 
 }

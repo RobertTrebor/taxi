@@ -18,7 +18,13 @@ public class CarMapper
     {
         CarDTO.CarDTOBuilder carDTOBuilder = CarDTO.newBuilder()
             .setId(carDO.getId())
-            .setAvailable(carDO.getAvailable());
+            .setAvailable(carDO.getAvailable())
+            .setLicensePlate(carDO.getLicensePlate())
+            .setSeatCount(carDO.getSeatCount())
+            .setConvertible(carDO.getConvertible())
+            .setRating(carDO.getRating())
+            .setEngineType(carDO.getEngineType())
+            .setManufacturer(carDO.getManufacturer());
 
         return carDTOBuilder.createCarDTO();
     }

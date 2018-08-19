@@ -5,6 +5,7 @@ import com.mytaxi.datatransferobject.DriverDTO;
 import com.mytaxi.domainobject.CarDO;
 import com.mytaxi.domainobject.DriverDO;
 import com.mytaxi.domainvalue.OnlineStatus;
+import com.mytaxi.exception.CarAlreadyInUseException;
 import com.mytaxi.exception.ConstraintsViolationException;
 import com.mytaxi.exception.EntityNotFoundException;
 import com.mytaxi.service.car.CarService;
@@ -48,11 +49,27 @@ public class DriverController
 
 
     @PutMapping("/{driverId}/select")
-    public void selectCar(
-        @Valid @PathVariable long driverId, @RequestParam long carId) throws EntityNotFoundException
+    public DriverDTO selectCar(
+        @Valid @PathVariable long driverId, @RequestParam long carId) throws EntityNotFoundException, CarAlreadyInUseException
     {
-        CarDO carDO = carService.find(carId);
+        DriverDO driverDO = driverService.findOnline(driverId);
+        CarDO carDO = carService.selectCar(carId);
         driverService.updateSelectedCar(driverId, carDO);
+        return DriverMapper.makeDriverCarDTO(driverService.find(driverId));
+    }
+
+
+    @PutMapping("/{driverId}/drop")
+    public DriverDTO dropSelectedCar(
+        @Valid @PathVariable long driverId) throws EntityNotFoundException
+    {
+        DriverDO driverDO = driverService.find(driverId);
+        if (driverDO.getSelectedCar() != null)
+        {
+            carService.dropSelectedCar(driverDO.getSelectedCar().getId());
+            driverService.updateSelectedCar(driverId, null);
+        }
+        return DriverMapper.makeDriverCarDTO(driverDO);
     }
 
 
@@ -61,6 +78,7 @@ public class DriverController
     {
         return DriverMapper.makeDriverCarDTO(driverService.find(driverId));
     }
+
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
@@ -87,7 +105,7 @@ public class DriverController
     }
 
 
-    @GetMapping
+    @GetMapping("/onlineStatus")
     public List<DriverDTO> findDrivers(@RequestParam OnlineStatus onlineStatus)
         throws ConstraintsViolationException, EntityNotFoundException
     {

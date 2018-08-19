@@ -12,6 +12,8 @@ public interface DriverService
 
     DriverDO find(Long driverId) throws EntityNotFoundException;
 
+    DriverDO findOnline(long driverId) throws EntityNotFoundException;
+
     DriverDO create(DriverDO driverDO) throws ConstraintsViolationException;
 
     void delete(Long driverId) throws EntityNotFoundException;
