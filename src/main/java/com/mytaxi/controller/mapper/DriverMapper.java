@@ -2,7 +2,6 @@ package com.mytaxi.controller.mapper;
 
 import com.mytaxi.datatransferobject.DriverDTO;
 import com.mytaxi.domainobject.DriverDO;
-import com.mytaxi.domainvalue.GeoCoordinate;
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -22,21 +21,25 @@ public class DriverMapper
             .setPassword(driverDO.getPassword())
             .setUsername(driverDO.getUsername());
 
-        GeoCoordinate coordinate = driverDO.getCoordinate();
-        if (coordinate != null)
+        if (driverDO.getCoordinate() != null)
         {
-            driverDTOBuilder.setCoordinate(coordinate);
+            driverDTOBuilder.setCoordinate(driverDO.getCoordinate());
         }
 
         return driverDTOBuilder.createDriverDTO();
     }
 
 
-    public static DriverDTO makeDriverCarDTO(DriverDO driverDO)
+    public static DriverDTO makeDriverInfoDTO(DriverDO driverDO)
     {
         DriverDTO.DriverDTOBuilder driverDTOBuilder = DriverDTO.newBuilder()
-            .setId(driverDO.getId());
+            .setId(driverDO.getId())
+            .setUsername(driverDO.getUsername());
 
+        if (driverDO.getCoordinate() != null)
+        {
+            driverDTOBuilder.setCoordinate(driverDO.getCoordinate());
+        }
         if (driverDO.getSelectedCar() != null)
         {
             driverDTOBuilder.setSelectedCar(driverDO.getSelectedCar());
@@ -49,7 +52,7 @@ public class DriverMapper
     public static List<DriverDTO> makeDriverDTOList(Collection<DriverDO> drivers)
     {
         return drivers.stream()
-            .map(DriverMapper::makeDriverDTO)
+            .map(DriverMapper::makeDriverInfoDTO)
             .collect(Collectors.toList());
     }
 }

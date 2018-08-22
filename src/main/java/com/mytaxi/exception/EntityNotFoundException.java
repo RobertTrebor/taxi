@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 @ResponseStatus(value = HttpStatus.BAD_REQUEST, reason = "Could not find entity with id.")
 public class EntityNotFoundException extends Exception
 {
-    static final long serialVersionUID = -3387516993334229948L;
+    private static final long serialVersionUID = 7022245482855934152L;
 
 
     public EntityNotFoundException(String message)

@@ -19,10 +19,6 @@ public interface CarService
 
     void dropSelectedCar(long carId) throws EntityNotFoundException;
 
-    void updateLocation(long carId, double longitude, double latitude) throws EntityNotFoundException;
-
-    void updateAvailable(long carId, boolean available) throws EntityNotFoundException;
-
     List<CarDO> find(Boolean available);
 
     List<CarDO> findAll();

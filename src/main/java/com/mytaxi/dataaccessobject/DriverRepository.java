@@ -18,4 +18,6 @@ public interface DriverRepository extends CrudRepository<DriverDO, Long>
 
     List<DriverDO> findAllByOnlineStatusEqualsAndUsernameIsContaining(OnlineStatus onlineStatus, String username);
 
+    List<DriverDO> findAllBySelectedCarNotNull();
+
 }

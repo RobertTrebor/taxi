@@ -2,7 +2,6 @@ package com.mytaxi.service.car;
 
 import com.mytaxi.dataaccessobject.CarRepository;
 import com.mytaxi.domainobject.CarDO;
-import com.mytaxi.domainvalue.GeoCoordinate;
 import com.mytaxi.exception.CarAlreadyInUseException;
 import com.mytaxi.exception.ConstraintsViolationException;
 import com.mytaxi.exception.EntityNotFoundException;
@@ -125,42 +124,6 @@ public class DefaultCarService implements CarService
         }
     }
 
-
-    /**
-     * Update the availability for a car.
-     *
-     * @param carId
-     * @param available
-     * @throws EntityNotFoundException
-     */
-    @Override
-    @Transactional
-    public void updateAvailable(long carId, boolean available) throws EntityNotFoundException
-    {
-        CarDO carDO = findCarChecked(carId);
-        if (checkCarAvailability(carDO))
-        {
-            carDO.setAvailable(available);
-
-        }
-
-    }
-
-    /**
-     * Update the location for a car.
-     *
-     * @param carId
-     * @param longitude
-     * @param latitude
-     * @throws EntityNotFoundException
-     */
-    @Override
-    @Transactional
-    public void updateLocation(long carId, double longitude, double latitude) throws EntityNotFoundException
-    {
-        CarDO carDO = findCarChecked(carId);
-        carDO.setCoordinate(new GeoCoordinate(latitude, longitude));
-    }
 
 
     /**

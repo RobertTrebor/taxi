@@ -2,6 +2,7 @@ package com.mytaxi.controller.mapper;
 
 import com.mytaxi.datatransferobject.CarDTO;
 import com.mytaxi.domainobject.CarDO;
+import com.mytaxi.domainvalue.EngineType;
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -10,7 +11,14 @@ public class CarMapper
 {
     public static CarDO makeCarDO(CarDTO carDTO)
     {
-        return new CarDO(carDTO.getAvailable());
+        String licensePlate = carDTO.getLicensePlate();
+        Boolean available = carDTO.getAvailable() != null ? carDTO.getAvailable() : true;
+        Integer seatCount = carDTO.getSeatCount() != null ? carDTO.getSeatCount() : 5;
+        Boolean convertible = carDTO.getConvertible() != null ? carDTO.getConvertible() : false;
+        Integer rating = carDTO.getRating() != null ? carDTO.getRating() : 3;
+        EngineType engineType = carDTO.getEngineType() != null ? carDTO.getEngineType() : EngineType.GAS;
+        String manufacturer = carDTO.getManufacturer();
+        return new CarDO(licensePlate, available, seatCount, convertible, rating, engineType, manufacturer);
     }
 
 

@@ -35,7 +35,8 @@ public class SearchController
     public List<DriverDTO> findDrivers(@RequestParam OnlineStatus onlineStatus)
         throws ConstraintsViolationException, EntityNotFoundException
     {
-        return DriverMapper.makeDriverDTOList(driverRepository.findByOnlineStatus(onlineStatus));
+        return DriverMapper.makeDriverDTOList(driverRepository
+            .findByOnlineStatus(onlineStatus));
     }
 
 
@@ -49,9 +50,19 @@ public class SearchController
     }
 
 
+    @GetMapping("/drivers/selectedcar")
+    public List<DriverDTO> findDriversBySelectedCar()
+        throws ConstraintsViolationException, EntityNotFoundException
+    {
+        return DriverMapper.makeDriverDTOList(driverRepository
+            .findAllBySelectedCarNotNull());
+    }
+
+
     @GetMapping("/drivers/attributes")
     public List<DriverDTO> findDriversByAttributes(
-        @RequestParam(required = false) OnlineStatus onlineStatus, @RequestParam(required = false) String username)
+        @RequestParam(required = false, defaultValue = "") OnlineStatus onlineStatus,
+        @RequestParam(required = false, defaultValue = "") String username)
         throws ConstraintsViolationException, EntityNotFoundException
     {
         return DriverMapper.makeDriverDTOList(driverRepository
@@ -61,7 +72,8 @@ public class SearchController
 
     @GetMapping("/cars/attributes")
     public List<CarDTO> findCarsByAttributes(
-        @RequestParam(required = false) String licensePlate, @RequestParam(required = false) Integer seatCount)
+        @RequestParam(required = false, defaultValue = "") String licensePlate,
+        @RequestParam(required = false, defaultValue = "0") Integer seatCount)
         throws ConstraintsViolationException, EntityNotFoundException
     {
         return CarMapper.makeCarDTOList(carRepository
@@ -71,7 +83,7 @@ public class SearchController
 
     @GetMapping("/cars/manufacturer")
     public List<CarDTO> findCarsByManufacturer(
-        @RequestParam(required = false) String manufacturer)
+        @RequestParam(required = false, defaultValue = "") String manufacturer)
         throws ConstraintsViolationException, EntityNotFoundException
     {
         return CarMapper.makeCarDTOList(carRepository.findAllByManufacturerIsStartingWith(manufacturer));

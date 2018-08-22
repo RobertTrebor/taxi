@@ -1,14 +1,13 @@
 package com.mytaxi.domainobject;
 
 import com.mytaxi.domainvalue.EngineType;
-import com.mytaxi.domainvalue.GeoCoordinate;
 import java.time.ZonedDateTime;
 import javax.persistence.Column;
-import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
@@ -22,18 +21,11 @@ public class CarDO
 {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column
     private Boolean active;
-
-    @Embedded
-    private GeoCoordinate coordinate;
-
-    @Column
-    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
-    private ZonedDateTime dateCoordinateUpdated = ZonedDateTime.now();
 
     @Column
     private Boolean available;
@@ -68,9 +60,16 @@ public class CarDO
     }
 
 
-    public CarDO(Boolean active)
+    public CarDO(String licensePlate, Boolean available, Integer seatCount, Boolean convertible, Integer rating, EngineType engineType, String manufacturer)
     {
-        this.active = active;
+        this.licensePlate = licensePlate;
+        this.active = true;
+        this.available = available;
+        this.seatCount = seatCount;
+        this.convertible = convertible;
+        this.rating = rating;
+        this.engineType = engineType;
+        this.manufacturer = manufacturer;
     }
 
 
@@ -95,30 +94,6 @@ public class CarDO
     public void setActive(Boolean active)
     {
         this.active = active;
-    }
-
-
-    public GeoCoordinate getCoordinate()
-    {
-        return coordinate;
-    }
-
-
-    public void setCoordinate(GeoCoordinate coordinate)
-    {
-        this.coordinate = coordinate;
-    }
-
-
-    public ZonedDateTime getDateCoordinateUpdated()
-    {
-        return dateCoordinateUpdated;
-    }
-
-
-    public void setDateCoordinateUpdated(ZonedDateTime dateCoordinateUpdated)
-    {
-        this.dateCoordinateUpdated = dateCoordinateUpdated;
     }
 
 

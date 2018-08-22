@@ -55,7 +55,7 @@ public class DriverController
         DriverDO driverDO = driverService.findOnline(driverId);
         CarDO carDO = carService.selectCar(carId);
         driverService.updateSelectedCar(driverId, carDO);
-        return DriverMapper.makeDriverCarDTO(driverService.find(driverId));
+        return DriverMapper.makeDriverInfoDTO(driverService.find(driverId));
     }
 
 
@@ -69,14 +69,14 @@ public class DriverController
             carService.dropSelectedCar(driverDO.getSelectedCar().getId());
             driverService.updateSelectedCar(driverId, null);
         }
-        return DriverMapper.makeDriverCarDTO(driverDO);
+        return DriverMapper.makeDriverInfoDTO(driverDO);
     }
 
 
     @GetMapping("/{driverId}/car")
     public DriverDTO getDriverAndCar(@Valid @PathVariable long driverId) throws EntityNotFoundException
     {
-        return DriverMapper.makeDriverCarDTO(driverService.find(driverId));
+        return DriverMapper.makeDriverInfoDTO(driverService.find(driverId));
     }
 
 
