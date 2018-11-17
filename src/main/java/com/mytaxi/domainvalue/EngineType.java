@@ -1,6 +1,5 @@
 package com.mytaxi.domainvalue;
 
-public enum EngineType
-{
+public enum EngineType {
     ELECTRIC, GAS
 }

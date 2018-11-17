@@ -3,14 +3,13 @@ package com.mytaxi.controller.mapper;
 import com.mytaxi.datatransferobject.CarDTO;
 import com.mytaxi.domainobject.CarDO;
 import com.mytaxi.domainvalue.EngineType;
+
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class CarMapper
-{
-    public static CarDO makeCarDO(CarDTO carDTO)
-    {
+public class CarMapper {
+    public static CarDO makeCarDO(CarDTO carDTO) {
         String licensePlate = carDTO.getLicensePlate();
         Boolean available = carDTO.getAvailable() != null ? carDTO.getAvailable() : true;
         Integer seatCount = carDTO.getSeatCount() != null ? carDTO.getSeatCount() : 5;
@@ -22,26 +21,24 @@ public class CarMapper
     }
 
 
-    public static CarDTO makeCarDTO(CarDO carDO)
-    {
+    public static CarDTO makeCarDTO(CarDO carDO) {
         CarDTO.CarDTOBuilder carDTOBuilder = CarDTO.newBuilder()
-            .setId(carDO.getId())
-            .setAvailable(carDO.getAvailable())
-            .setLicensePlate(carDO.getLicensePlate())
-            .setSeatCount(carDO.getSeatCount())
-            .setConvertible(carDO.getConvertible())
-            .setRating(carDO.getRating())
-            .setEngineType(carDO.getEngineType())
-            .setManufacturer(carDO.getManufacturer());
+                .setId(carDO.getId())
+                .setAvailable(carDO.getAvailable())
+                .setLicensePlate(carDO.getLicensePlate())
+                .setSeatCount(carDO.getSeatCount())
+                .setConvertible(carDO.getConvertible())
+                .setRating(carDO.getRating())
+                .setEngineType(carDO.getEngineType())
+                .setManufacturer(carDO.getManufacturer());
 
         return carDTOBuilder.createCarDTO();
     }
 
 
-    public static List<CarDTO> makeCarDTOList(Collection<CarDO> cars)
-    {
+    public static List<CarDTO> makeCarDTOList(Collection<CarDO> cars) {
         return cars.stream()
-            .map(CarMapper::makeCarDTO)
-            .collect(Collectors.toList());
+                .map(CarMapper::makeCarDTO)
+                .collect(Collectors.toList());
     }
 }

@@ -1,24 +1,17 @@
 package com.mytaxi.domainobject;
 
 import com.mytaxi.domainvalue.EngineType;
-import java.time.ZonedDateTime;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
 import org.springframework.format.annotation.DateTimeFormat;
+
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import java.time.ZonedDateTime;
 
 @Entity
 @Table(
-    name = "car"
+        name = "car"
 )
-public class CarDO
-{
+public class CarDO {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -55,13 +48,11 @@ public class CarDO
     private String manufacturer;
 
 
-    private CarDO()
-    {
+    private CarDO() {
     }
 
 
-    public CarDO(String licensePlate, Boolean available, Integer seatCount, Boolean convertible, Integer rating, EngineType engineType, String manufacturer)
-    {
+    public CarDO(String licensePlate, Boolean available, Integer seatCount, Boolean convertible, Integer rating, EngineType engineType, String manufacturer) {
         this.licensePlate = licensePlate;
         this.active = true;
         this.available = available;
@@ -73,122 +64,102 @@ public class CarDO
     }
 
 
-    public Long getId()
-    {
+    public Long getId() {
         return id;
     }
 
 
-    public void setId(Long id)
-    {
+    public void setId(Long id) {
         this.id = id;
     }
 
 
-    public Boolean getActive()
-    {
+    public Boolean getActive() {
         return active;
     }
 
 
-    public void setActive(Boolean active)
-    {
+    public void setActive(Boolean active) {
         this.active = active;
     }
 
 
-    public Boolean getAvailable()
-    {
+    public Boolean getAvailable() {
         return available;
     }
 
 
-    public void setAvailable(Boolean available)
-    {
+    public void setAvailable(Boolean available) {
         this.available = available;
     }
 
 
-    public ZonedDateTime getDateCreated()
-    {
+    public ZonedDateTime getDateCreated() {
         return dateCreated;
     }
 
 
-    public void setDateCreated(ZonedDateTime dateCreated)
-    {
+    public void setDateCreated(ZonedDateTime dateCreated) {
         this.dateCreated = dateCreated;
     }
 
 
-    public String getLicensePlate()
-    {
+    public String getLicensePlate() {
         return licensePlate;
     }
 
 
-    public void setLicensePlate(String licensePlate)
-    {
+    public void setLicensePlate(String licensePlate) {
         this.licensePlate = licensePlate;
     }
 
 
-    public Integer getSeatCount()
-    {
+    public Integer getSeatCount() {
         return seatCount;
     }
 
 
-    public void setSeatCount(Integer seatCount)
-    {
+    public void setSeatCount(Integer seatCount) {
         this.seatCount = seatCount;
     }
 
 
-    public Boolean getConvertible()
-    {
+    public Boolean getConvertible() {
         return convertible;
     }
 
 
-    public void setConvertible(Boolean convertible)
-    {
+    public void setConvertible(Boolean convertible) {
         this.convertible = convertible;
     }
 
 
-    public Integer getRating()
-    {
+    public Integer getRating() {
         return rating;
     }
 
 
-    public void setRating(Integer rating)
-    {
+    public void setRating(Integer rating) {
         this.rating = rating;
     }
 
 
-    public EngineType getEngineType()
-    {
+    public EngineType getEngineType() {
         return engineType;
     }
 
 
-    public void setEngineType(EngineType engineType)
-    {
+    public void setEngineType(EngineType engineType) {
         this.engineType = engineType;
     }
 
 
-    public String getManufacturer()
-    {
+    public String getManufacturer() {
         return manufacturer;
     }
 
 
-    public void setManufacturer(String manufacturer)
-    {
+    public void setManufacturer(String manufacturer) {
         this.manufacturer = manufacturer;
     }
 }

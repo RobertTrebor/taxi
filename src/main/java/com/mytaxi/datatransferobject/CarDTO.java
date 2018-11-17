@@ -6,8 +6,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.mytaxi.domainvalue.EngineType;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class CarDTO
-{
+public class CarDTO {
     @JsonIgnore
     private Long id;
 
@@ -20,13 +19,11 @@ public class CarDTO
     private String manufacturer;
 
 
-    private CarDTO()
-    {
+    private CarDTO() {
     }
 
 
-    private CarDTO(Long id, Boolean available, String licensePlate, Integer seatCount, Boolean convertible, Integer rating, EngineType engineType, String manufacturer)
-    {
+    private CarDTO(Long id, Boolean available, String licensePlate, Integer seatCount, Boolean convertible, Integer rating, EngineType engineType, String manufacturer) {
         this.id = id;
         this.available = available;
         this.licensePlate = licensePlate;
@@ -38,63 +35,53 @@ public class CarDTO
     }
 
 
-    public static CarDTOBuilder newBuilder()
-    {
+    public static CarDTOBuilder newBuilder() {
         return new CarDTOBuilder();
     }
 
 
     @JsonProperty
-    public Long getId()
-    {
+    public Long getId() {
         return id;
     }
 
 
-    public Boolean getAvailable()
-    {
+    public Boolean getAvailable() {
         return available;
     }
 
 
-    public String getLicensePlate()
-    {
+    public String getLicensePlate() {
         return licensePlate;
     }
 
 
-    public Integer getSeatCount()
-    {
+    public Integer getSeatCount() {
         return seatCount;
     }
 
 
-    public Boolean getConvertible()
-    {
+    public Boolean getConvertible() {
         return convertible;
     }
 
 
-    public Integer getRating()
-    {
+    public Integer getRating() {
         return rating;
     }
 
 
-    public EngineType getEngineType()
-    {
+    public EngineType getEngineType() {
         return engineType;
     }
 
 
-    public String getManufacturer()
-    {
+    public String getManufacturer() {
         return manufacturer;
     }
 
 
-    public static class CarDTOBuilder
-    {
+    public static class CarDTOBuilder {
         private Long id;
         private Boolean available;
         private String licensePlate;
@@ -105,64 +92,55 @@ public class CarDTO
         private String manufacturer;
 
 
-        public CarDTOBuilder setId(Long id)
-        {
+        public CarDTOBuilder setId(Long id) {
             this.id = id;
             return this;
         }
 
 
-        public CarDTOBuilder setAvailable(Boolean available)
-        {
+        public CarDTOBuilder setAvailable(Boolean available) {
             this.available = available;
             return this;
         }
 
 
-        public CarDTOBuilder setLicensePlate(String licensePlate)
-        {
+        public CarDTOBuilder setLicensePlate(String licensePlate) {
             this.licensePlate = licensePlate;
             return this;
         }
 
 
-        public CarDTOBuilder setSeatCount(Integer seatCount)
-        {
+        public CarDTOBuilder setSeatCount(Integer seatCount) {
             this.seatCount = seatCount;
             return this;
         }
 
 
-        public CarDTOBuilder setConvertible(Boolean convertible)
-        {
+        public CarDTOBuilder setConvertible(Boolean convertible) {
             this.convertible = convertible;
             return this;
         }
 
 
-        public CarDTOBuilder setRating(Integer rating)
-        {
+        public CarDTOBuilder setRating(Integer rating) {
             this.rating = rating;
             return this;
         }
 
 
-        public CarDTOBuilder setEngineType(EngineType engineType)
-        {
+        public CarDTOBuilder setEngineType(EngineType engineType) {
             this.engineType = engineType;
             return this;
         }
 
 
-        public CarDTOBuilder setManufacturer(String manufacturer)
-        {
+        public CarDTOBuilder setManufacturer(String manufacturer) {
             this.manufacturer = manufacturer;
             return this;
         }
 
 
-        public CarDTO createCarDTO()
-        {
+        public CarDTO createCarDTO() {
             return new CarDTO(id, available, licensePlate, seatCount, convertible, rating, engineType, manufacturer);
         }
 
